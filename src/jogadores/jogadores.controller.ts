@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import { Callback } from 'mongoose';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
 import { JogadoresService } from './jogadores.service';
@@ -15,11 +16,11 @@ export class JogadoresController {
   @Get()
   async consultarJogadores(
     @Query('email') email: string,
-  ): Promise<Jogador[] | Jogador> {
+  ): Promise<Jogador[] | Callback<Jogador>> {
     if (email) {
-      return this.jogadoresService.consultarJogadorPeloEmail(email);
+      return await this.jogadoresService.consultarJogadorPeloEmail(email);
     }
-    return this.jogadoresService.consultarTodosJogadores();
+    return await this.jogadoresService.consultarTodosJogadores();
   }
 
   @Delete()
