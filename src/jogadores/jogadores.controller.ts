@@ -16,7 +16,7 @@ export class JogadoresController {
   @Get()
   async consultarJogadores(
     @Query('email') email: string,
-  ): Promise<Jogador[] | Callback<Jogador>> {
+  ): Promise<Jogador[] | Jogador> {
     if (email) {
       return await this.jogadoresService.consultarJogadorPeloEmail(email);
     }
