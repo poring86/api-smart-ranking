@@ -3,6 +3,7 @@ import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Callback, Model } from 'mongoose';
+import { DeleteResult } from 'mongodb';
 
 @Injectable()
 export class JogadoresService {
@@ -44,8 +45,8 @@ export class JogadoresService {
     return jogadorEncontrado;
   }
 
-  async deletarJogador(email): Promise<void> {
-    return await this.jogadorModel.remove({ email }).exec();
+  async deletarJogador(email): Promise<DeleteResult> {
+    return await this.jogadorModel.deleteOne({ email }).exec();
   }
 
   private async criar(criaJogadorDto: CriarJogadorDto): Promise<Jogador> {
