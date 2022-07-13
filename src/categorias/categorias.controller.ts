@@ -12,7 +12,6 @@ import {
 import { CriarCategoriaDto } from './dtos/criar-categoria-dto';
 import { Categoria } from './interfaces/categoria.interface';
 import { CategoriasService } from './categorias.service';
-import { AtualizarJogadorDto } from 'src/jogadores/dtos/atualizar-jogador.dto';
 import { AtualizarCategoriaDto } from './dtos/atualizar-categoria-dto';
 
 @Controller('api/v1/categorias')
