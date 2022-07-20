@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 import { Jogador } from 'src/jogadores/interfaces/jogador.interface';
 
-export class CriarCategoriaDto {
+export class CriarDesafioDto {
   @IsNotEmpty()
   @IsDateString()
   dataHoraDesafio: Date;
