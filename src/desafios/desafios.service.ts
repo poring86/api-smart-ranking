@@ -15,8 +15,7 @@ export class DesafiosService {
   ) {}
 
   private readonly logger = new Logger(DesafiosService.name);
-  async criarDesafio(criarDesafioDto: CriarDesafioDto): Promise<any> {
-    console.log('criarDesafioDto', criarDesafioDto);
+  async criarDesafio(criarDesafioDto: CriarDesafioDto): Promise<Desafio> {
     const { jogadores, solicitante } = criarDesafioDto;
 
     // Verificar se todos os jogadores da partida estão cadastrados
@@ -26,12 +25,12 @@ export class DesafiosService {
 
     jogadores.forEach((jogador) => {
       const jogadorCadastrado = todosJogadores.find(
-        (item) => item.id === jogador.id,
+        (item) => item._id.toString() === jogador._id,
       );
 
       if (!jogadorCadastrado) {
         throw new BadRequestException(
-          `O jogador com o id ${jogador.id} não está cadastrado`,
+          `O jogador com o id ${jogador._id} não está cadastrado`,
         );
       }
     });
@@ -39,23 +38,23 @@ export class DesafiosService {
     // Verificar se solictante faz parte da partida
 
     const solicitanteJogador = jogadores.find(
-      (jogador) => jogador.id === solicitante.id,
+      (jogador) => jogador._id === solicitante,
     );
 
     if (!solicitanteJogador) {
       throw new BadRequestException(
-        `O jogador com o id ${solicitante.id} não é um dos jogadores da partida`,
+        `O jogador com o id ${solicitante} não é um dos jogadores da partida`,
       );
     }
 
     // Verificar se solicitante desafio está cadastrado em uma categoria
 
     const categoriaDoJogador =
-      await this.categoriasService.consultarCategoriaDoJogador(solicitante.id);
+      await this.categoriasService.consultarCategoriaDoJogador(solicitante);
 
     if (!categoriaDoJogador) {
       throw new BadRequestException(
-        `O jogador desafiante com o id ${solicitante.id} não está na categoria`,
+        `O jogador desafiante com o id ${solicitante} não está na categoria`,
       );
     }
 

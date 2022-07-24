@@ -37,7 +37,7 @@ export class CategoriasService {
     return await this.categoriaModel.find().populate('jogadores').exec();
   }
 
-  async consultarCategoriaDoJogador(idJogador: string) {
+  async consultarCategoriaDoJogador(idJogador) {
     const jogadorCadastrado =
       await this.jogadoresService.consultarJogadorPeloId(idJogador);
 
