@@ -5,6 +5,8 @@ import { DesafioStatus } from './desafio-status.enum';
 export interface Desafio extends Document {
   dataHoraDesafio: Date;
   status: DesafioStatus;
+  dataHoraSolicitacao: Date;
+  dataHoraResposta: Date;
   categoria: string;
   jogadores: Jogador[];
   partida: Partida;

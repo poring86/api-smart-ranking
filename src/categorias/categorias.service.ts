@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  Param,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -36,6 +35,21 @@ export class CategoriasService {
 
   async consultarTodasCategorias(): Promise<Categoria[]> {
     return await this.categoriaModel.find().populate('jogadores').exec();
+  }
+
+  async consultarCategoriaDoJogador(idJogador: string) {
+    const jogadorCadastrado =
+      await this.jogadoresService.consultarJogadorPeloId(idJogador);
+
+    if (!jogadorCadastrado) {
+      throw new NotFoundException(`Jogador não foi cadastrado`);
+    }
+
+    return await this.categoriaModel
+      .findOne()
+      .where('jogadores')
+      .in([idJogador])
+      .exec();
   }
 
   async consultarCategoriaPeloId(categoria: string): Promise<Categoria> {

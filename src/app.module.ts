@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { JogadoresModule } from './jogadores/jogadores.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CategoriasModule } from './categorias/categorias.module';
-import { DesafiosService } from './desafios/desafios.service';
 import { DesafiosModule } from './desafios/desafios.module';
 
 @Module({
@@ -18,6 +17,6 @@ import { DesafiosModule } from './desafios/desafios.module';
     DesafiosModule,
   ],
   controllers: [],
-  providers: [DesafiosService],
+  providers: [],
 })
 export class AppModule {}
