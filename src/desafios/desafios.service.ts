@@ -72,12 +72,15 @@ export class DesafiosService {
   }
 
   async consultarDesafiosDeUmJogador(idJogador) {
-    const jogadorEncontrado =
-      this.jogadoresService.consultarJogadorPeloId(idJogador);
+    const todosJogadores =
+      await this.jogadoresService.consultarTodosJogadores();
+    const jogadorEncontrado = todosJogadores.find(
+      (jogador) => jogador._id.toString() === idJogador,
+    );
 
     if (!jogadorEncontrado) {
       throw new BadRequestException(
-        `O jogador desafiante com o id ${idJogador} não encontrado`,
+        `O jogador id ${idJogador} não está cadastrado`,
       );
     }
 
