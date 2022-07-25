@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -20,5 +21,12 @@ export class DesafiosController {
     @Body() CriarDesafioDto: CriarDesafioDto,
   ): Promise<Desafio> {
     return await this.desafiosService.criarDesafio(CriarDesafioDto);
+  }
+
+  @Get()
+  async consultarDesafios(@Query('idJogador') _id: string): Promise<Desafio[]> {
+    return _id
+      ? await this.desafiosService.consultarDesafiosDeUmJogador(_id)
+      : await this.desafiosService.consultarTodosDesafios();
   }
 }

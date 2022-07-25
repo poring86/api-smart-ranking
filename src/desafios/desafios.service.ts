@@ -67,4 +67,27 @@ export class DesafiosService {
     this.logger.log(`desafioCriado: ${JSON.stringify(desafioCriado)}`);
     return await desafioCriado.save();
   }
+  async consultarTodosDesafios() {
+    return await this.desafioModel.find();
+  }
+
+  async consultarDesafiosDeUmJogador(idJogador) {
+    const jogadorEncontrado =
+      this.jogadoresService.consultarJogadorPeloId(idJogador);
+
+    if (!jogadorEncontrado) {
+      throw new BadRequestException(
+        `O jogador desafiante com o id ${idJogador} não encontrado`,
+      );
+    }
+
+    return await this.desafioModel
+      .find()
+      .where('jogadores')
+      .in([idJogador])
+      .populate('solicitante')
+      .populate('jogadores')
+      .populate('partida')
+      .exec();
+  }
 }
