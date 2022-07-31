@@ -93,4 +93,6 @@ export class DesafiosService {
       .populate('partida')
       .exec();
   }
+
+  async atualizarDesafio(_id, AtualizarDesafioDto) {}
 }

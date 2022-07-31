@@ -8,6 +8,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { DesafiosService } from './desafios.service';
+import { AtualizarDesafioDto } from './dtos/atualizar-desafio.dto';
 import { CriarDesafioDto } from './dtos/criar-desafio.dto';
 import { Desafio } from './interfaces/desafio.interface';
 
@@ -28,5 +29,9 @@ export class DesafiosController {
     return _id
       ? await this.desafiosService.consultarDesafiosDeUmJogador(_id)
       : await this.desafiosService.consultarTodosDesafios();
+  }
+
+  async atualizarDesafio(@Body() AtualizarDesafioDto: AtualizarDesafioDto) {
+    return await this.desafiosService.atualizarDesafio;
   }
 }
