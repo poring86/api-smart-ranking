@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CategoriasService } from 'src/categorias/categorias.service';
 import { JogadoresService } from 'src/jogadores/jogadores.service';
+import { AtualizarDesafioDto } from './dtos/atualizar-desafio.dto';
 import { CriarDesafioDto } from './dtos/criar-desafio.dto';
 import { Desafio } from './interfaces/desafio.interface';
 
@@ -94,5 +95,22 @@ export class DesafiosService {
       .exec();
   }
 
-  async atualizarDesafio(_id, AtualizarDesafioDto) {}
+  async atualizarDesafio(_id, AtualizarDesafioDto: AtualizarDesafioDto) {
+    const desafioEncontrado = await this.desafioModel.findById(_id).exec();
+
+    if (!desafioEncontrado) {
+      throw new BadRequestException(`Desafio ${_id} não cadastrado`);
+    }
+
+    if (AtualizarDesafioDto.status) {
+      desafioEncontrado.dataHoraResposta = new Date();
+    }
+
+    desafioEncontrado.status = AtualizarDesafioDto.status;
+    desafioEncontrado.dataHoraDesafio = AtualizarDesafioDto.dataHoraDesafio;
+
+    await this.desafioModel
+      .findOneAndUpdate({ _id }, { $set: desafioEncontrado })
+      .exec();
+  }
 }

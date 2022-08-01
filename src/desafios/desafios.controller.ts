@@ -2,7 +2,9 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
+  Put,
   Query,
   UsePipes,
   ValidationPipe,
@@ -31,7 +33,14 @@ export class DesafiosController {
       : await this.desafiosService.consultarTodosDesafios();
   }
 
-  async atualizarDesafio(@Body() AtualizarDesafioDto: AtualizarDesafioDto) {
-    return await this.desafiosService.atualizarDesafio;
+  @Put('/:desafio')
+  async atualizarDesafio(
+    @Body() AtualizarDesafioDto: AtualizarDesafioDto,
+    @Param('desafio') _id: string,
+  ) {
+    return await this.desafiosService.atualizarDesafio(
+      _id,
+      AtualizarDesafioDto,
+    );
   }
 }
