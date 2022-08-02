@@ -5,6 +5,7 @@ import { CategoriasService } from 'src/categorias/categorias.service';
 import { JogadoresService } from 'src/jogadores/jogadores.service';
 import { AtualizarDesafioDto } from './dtos/atualizar-desafio.dto';
 import { CriarDesafioDto } from './dtos/criar-desafio.dto';
+import { DesafioStatus } from './interfaces/desafio-status.enum';
 import { Desafio } from './interfaces/desafio.interface';
 
 @Injectable()
@@ -64,6 +65,7 @@ export class DesafiosService {
     const desafioCriado = new this.desafioModel(criarDesafioDto);
     desafioCriado.categoria = categoriaDoJogador.Categoria;
     desafioCriado.dataHoraSolicitacao = new Date();
+    desafioCriado.status = DesafioStatus.PENDENTE;
 
     this.logger.log(`desafioCriado: ${JSON.stringify(desafioCriado)}`);
     return await desafioCriado.save();
