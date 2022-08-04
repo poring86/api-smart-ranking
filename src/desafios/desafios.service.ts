@@ -97,7 +97,10 @@ export class DesafiosService {
       .exec();
   }
 
-  async atualizarDesafio(_id, AtualizarDesafioDto: AtualizarDesafioDto) {
+  async atualizarDesafio(
+    _id,
+    AtualizarDesafioDto: AtualizarDesafioDto,
+  ): Promise<void> {
     const desafioEncontrado = await this.desafioModel.findById(_id).exec();
 
     if (!desafioEncontrado) {

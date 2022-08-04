@@ -38,7 +38,7 @@ export class DesafiosController {
   async atualizarDesafio(
     @Body(DesafioStatusValidacaoPipe) AtualizarDesafioDto: AtualizarDesafioDto,
     @Param('desafio') _id: string,
-  ) {
+  ): Promise<void> {
     return await this.desafiosService.atualizarDesafio(
       _id,
       AtualizarDesafioDto,
