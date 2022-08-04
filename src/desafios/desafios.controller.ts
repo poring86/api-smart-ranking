@@ -13,6 +13,7 @@ import { DesafiosService } from './desafios.service';
 import { AtualizarDesafioDto } from './dtos/atualizar-desafio.dto';
 import { CriarDesafioDto } from './dtos/criar-desafio.dto';
 import { Desafio } from './interfaces/desafio.interface';
+import { DesafioStatusValidacaoPipe } from './pipes/desafio-status-validation-pipe';
 
 @Controller('api/v1/desafios')
 export class DesafiosController {
@@ -35,7 +36,7 @@ export class DesafiosController {
 
   @Put('/:desafio')
   async atualizarDesafio(
-    @Body() AtualizarDesafioDto: AtualizarDesafioDto,
+    @Body(DesafioStatusValidacaoPipe) AtualizarDesafioDto: AtualizarDesafioDto,
     @Param('desafio') _id: string,
   ) {
     return await this.desafiosService.atualizarDesafio(
