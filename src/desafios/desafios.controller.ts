@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -43,5 +44,10 @@ export class DesafiosController {
       _id,
       AtualizarDesafioDto,
     );
+  }
+
+  @Delete('/:_id')
+  async deletarDesafio(@Param('_id') _id: string): Promise<void> {
+    return await this.desafiosService.deletarDesafio(_id);
   }
 }
