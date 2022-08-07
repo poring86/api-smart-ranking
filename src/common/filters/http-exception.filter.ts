@@ -4,8 +4,8 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
-import { Logger } from 'mongodb';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
